@@ -18,39 +18,21 @@ const getNombre = ( newMessage ) => {
 
 
 export const FirstApp = ( {title, subTitle, propTest} ) => {
-
-
-    //console.log( props );
-
-    /*
-    Al envolver un grupo de elementos entre <> </>, permite utilizar
-    de forma implícita el Fragment
-    */
     return (
         <> 
-        <h1>Rafael Brenes</h1>
-        <h1> {/*props.title*/ } </h1>
-        <h1> { title} </h1>
-        <h2> { subTitle} </h2>
-        <h3> { propTest} </h3>
-
-        {/*<h1> { getNombre(newMessage).message } </h1>
-        <code> { JSON.stringify(newMessage) } </code>
-        <p>Nueva línea de descripción</p>*/}
+        <h1 data-testid="test-title">{ title }</h1>
+        <h2>{ subTitle }</h2>
+        <h2>{ subTitle }</h2>
+        <h3>{ propTest }</h3>
         </>
     );
 }
-
-//export const FirstApp = () => (<div>FirstApp!</div>);
-
-
-
 FirstApp.propTypes = {
     title: PropTypes.string.isRequired,
-    subTitle: PropTypes.string.isRequired,
+    subTitle: PropTypes.string,
 }
 
 FirstApp.defaultProps = {
-    subTitle: 'subTitle',
-    //title: 'No hay titulo',
+    //subTitle: 'No hay subTitle',
+    title: 'No hay titulo',
 }
