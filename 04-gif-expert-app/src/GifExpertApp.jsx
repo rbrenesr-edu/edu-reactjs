@@ -1,15 +1,12 @@
 //t8Cg1VEQEJd1zTm4w67bKe3oE6KKRf5k
 import { useState } from "react";
-import { AddCategory } from "./components/AddCategory";
-import { GifGrid } from "./components/GifGrid";
+import { AddCategory, GifGrid  } from "./components";
 
 export const GifExpertApp = () => {
 
-  const [categories, setCategories] = useState( [] )
-
+  const [categories, setCategories] = useState( ['One Punch'] )
   const onAddCategory = ( newCategory ) =>{
     if( categories.includes( newCategory ) ) return;
-
      setCategories( cat =>  [newCategory, ...cat]);     
   }
   
