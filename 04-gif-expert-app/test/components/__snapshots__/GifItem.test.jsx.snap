@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test GifItem Match con el snapshot 1`] = `
+<div>
+  <div
+    class="card"
+  >
+    <img
+      alt="Titulo"
+      src="http://localhost/ulr_dir"
+    />
+    <p>
+      Titulo
+    </p>
+  </div>
+</div>
+`;
