@@ -14,7 +14,7 @@ export const MultipleCustomHooks = () => {
     let url = `https://www.breakingbadapi.com/api/quotes/${counter}`;
 
     const { data, isLoading, hasError} = useFetch(url);    
-    //console.log( data);
+    // console.log( hasError);
     const { author, quote } = !!data && data[0];
 
 
