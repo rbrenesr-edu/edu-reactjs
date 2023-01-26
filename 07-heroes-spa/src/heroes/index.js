@@ -1,3 +1,4 @@
-export * from './pages'
-export * from './componets'
-export * from './routes/HeroesRoutes'
+
+
+export * from './pages';
+export * from './routes/HeroesRoutes';
