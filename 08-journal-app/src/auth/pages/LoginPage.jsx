@@ -21,15 +21,17 @@ import {
 } from "../../store/auth";
 import { useForm } from "../../hooks";
 
+const formData = {
+  email: "",
+  password: "",
+}
+
 export const LoginPage = () => {
   const dispatch = useDispatch();
   const { status, errorMessage } = useSelector((state) => state.auth);
   const isAuthentiating = useMemo(() => status === "checking", [status]);
 
-  const { email, password, onInputChange } = useForm({
-    email: "",
-    password: "",
-  });
+  const { email, password, onInputChange } = useForm(formData);
 
   // const { email, password, onInputChange } = useForm({
   //   email: "correo@gmail.com",
@@ -69,6 +71,7 @@ export const LoginPage = () => {
               name="password"
               value={password}
               onChange={onInputChange}
+              autoComplete="off"
             />
           </Grid>
 
