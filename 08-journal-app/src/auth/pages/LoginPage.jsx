@@ -33,6 +33,7 @@ export const LoginPage = () => {
 
   const { email, password, onInputChange } = useForm(formData);
 
+  /*Esto provoca que cada vez que se llame el componente, se construye en memoria*/
   // const { email, password, onInputChange } = useForm({
   //   email: "correo@gmail.com",
   //   password: "123465",
