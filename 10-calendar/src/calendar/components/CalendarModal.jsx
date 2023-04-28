@@ -31,18 +31,16 @@ const  onCloseModal = () => {
         onRequestClose={ onCloseModal }
         style={customStyles}
         contentLabel="Example Modal"
+        className="modal"
+        overlayClassName="modal-fondo"
+        closeTimeoutMS={ 200 }
     >
 
         <h1>Modal</h1>
-        <button onClick={onCloseModal}>close</button>
-        <div>I am a modal</div>
-        <form>
-          <input />
-          <button>tab navigation</button>
-          <button>stays</button>
-          <button>inside</button>
-          <button>the modal</button>
-        </form>
+        <hr />
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum, ex!
+        </p>
 
     </Modal>
   )
