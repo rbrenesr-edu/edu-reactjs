@@ -1,13 +1,19 @@
+//#region Importaciones
 import { useState } from "react";
-import { addHours } from "date-fns";
 import Modal from "react-modal";
-import DatePicker, { registerLocale } from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
+
+import { addHours, differenceInSeconds } from "date-fns";
 import es from 'date-fns/locale/es';
 
-registerLocale('es', es)
+import DatePicker, { registerLocale } from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+//#endregion
 
-const customStyles = {
+// #region Estilos globales
+
+registerLocale('es', es) //*Idioma en español
+
+const customStyles = { //*Estilos básicos para el modal
   content: {
     top: "50%",
     left: "50%",
@@ -18,18 +24,26 @@ const customStyles = {
   },
 };
 
-Modal.setAppElement("#root");
+Modal.setAppElement("#root"); //*Agrega el modal al root
+
+// #endregion
+
 
 export const CalendarModal = () => {
+
+//#region useState - Valores iniciales
   const [isModalOpen, setIsModalOpen] = useState(true);
 
   const [formValues, setFormValues] = useState({
-    title: "title",
-    notes: "notes",
+    title: "",
+    notes: "",
     start: new Date(),
     end: addHours(new Date(), 2),
   });
+//#endregion
 
+
+//#region onEvents
   const onInputChanged = ({ target }) => {
     setFormValues({
       ...formValues,
@@ -49,6 +63,39 @@ export const CalendarModal = () => {
     setIsModalOpen(false);
   };
 
+//#endregion
+
+//#region onSubmit
+  const onSubmit =( event )=>{
+    event.preventDefault();
+    
+    // !validaciones
+    //* endDate no debe ser menor a la startDate
+    const difference = differenceInSeconds( formValues.end, formValues.start );
+    
+    if( isNaN(difference)){
+      alert('Las fechas deben tener valores correctos!');
+      return;
+    }
+
+    if( difference < 1 ){
+      alert('Las fecha final debe ser mayor a la fecha inicio!');
+      return;
+    }
+
+    if( formValues.title.length <1 ){ alert( 'Debe de ingresar un título!' ); return; }
+      
+    console.log(formValues);
+
+
+    // TODO: 
+    //* Cerrar modal
+    //* remover errores en pantalla
+    //* Otros
+
+  }
+//#endregion
+
   return (
     <Modal
       isOpen={isModalOpen}
@@ -61,7 +108,7 @@ export const CalendarModal = () => {
     >
       <h1> Nuevo evento </h1>
       <hr />
-      <form className="container">
+      <form className="container" onSubmit={ onSubmit }>
         <div className="form-group mb-2">
           <label>Fecha y hora inicio</label>
           <DatePicker            
