@@ -1,6 +1,8 @@
 //#region Importaciones
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Modal from "react-modal";
+import Swal from "sweetalert2";
+import 'sweetalert2/dist/sweetalert2.min.css'
 
 import { addHours, differenceInSeconds } from "date-fns";
 import es from 'date-fns/locale/es';
@@ -40,6 +42,20 @@ export const CalendarModal = () => {
     start: new Date(),
     end: addHours(new Date(), 2),
   });
+
+  //*Se utiliza para evaluar si el usuario intentó hacer el Submite del formulario
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const titleValidClass = useMemo(() => {
+    if(!formSubmitted) return '';
+
+    return ( formValues.title.length > 0 )
+           ? ''
+           : 'is-invalid'
+
+  }, 
+  [ formValues.title, formSubmitted ])
+
 //#endregion
 
 
@@ -68,23 +84,24 @@ export const CalendarModal = () => {
 //#region onSubmit
   const onSubmit =( event )=>{
     event.preventDefault();
+    setFormSubmitted(true);
     
     // !validaciones
     //* endDate no debe ser menor a la startDate
     const difference = differenceInSeconds( formValues.end, formValues.start );
     
-    if( isNaN(difference)){
-      alert('Las fechas deben tener valores correctos!');
+    if( isNaN(difference)){      
+      Swal.fire('','Las fechas deben tener valores correctos!','error');
       return;
     }
 
-    if( difference < 1 ){
-      alert('Las fecha final debe ser mayor a la fecha inicio!');
+    if( difference < 1 ){      
+      Swal.fire('','Las fecha final debe ser mayor a la fecha inicio!','error');
       return;
     }
 
-    if( formValues.title.length <1 ){ alert( 'Debe de ingresar un título!' ); return; }
-      
+    if( formValues.title.length <1 ) return;
+
     console.log(formValues);
 
 
@@ -141,7 +158,7 @@ export const CalendarModal = () => {
           <label>Titulo y notas</label>
           <input
             type="text"
-            className="form-control"
+            className= { `form-control ${ titleValidClass }` } 
             placeholder="Título del evento"
             name="title"
             autoComplete="off"
