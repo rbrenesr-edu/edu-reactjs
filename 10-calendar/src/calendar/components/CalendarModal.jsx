@@ -9,6 +9,9 @@ import es from 'date-fns/locale/es';
 
 import DatePicker, { registerLocale } from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+
+import { useUiStore } from "../../hooks";
+
 //#endregion
 
 // #region Estilos globales
@@ -33,9 +36,8 @@ Modal.setAppElement("#root"); //*Agrega el modal al root
 
 export const CalendarModal = () => {
 
-//#region useState - Valores iniciales
-  const [isModalOpen, setIsModalOpen] = useState(true);
-
+//*#region useState - Valores iniciales
+  
   const [formValues, setFormValues] = useState({
     title: "",
     notes: "",
@@ -58,8 +60,7 @@ export const CalendarModal = () => {
 
 //#endregion
 
-
-//#region onEvents
+//*#region onEvents
   const onInputChanged = ({ target }) => {
     setFormValues({
       ...formValues,
@@ -75,13 +76,13 @@ export const CalendarModal = () => {
   };
 
   const onCloseModal = () => {
-    console.log("cerrando modal");
-    setIsModalOpen(false);
+    // console.log("cerrando modal");
+    closeDateModal();
   };
 
 //#endregion
 
-//#region onSubmit
+//*#region onSubmit
   const onSubmit =( event )=>{
     event.preventDefault();
     setFormSubmitted(true);
@@ -113,9 +114,15 @@ export const CalendarModal = () => {
   }
 //#endregion
 
+//*#region hooks
+
+ const { isDateModalOpen, closeDateModal } =  useUiStore();
+
+//#endregion
+
   return (
     <Modal
-      isOpen={isModalOpen}
+      isOpen={isDateModalOpen}
       onRequestClose={onCloseModal}
       style={customStyles}
       contentLabel="Example Modal"
