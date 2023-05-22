@@ -1,13 +1,17 @@
 const express = require('express');
 require('dotenv').config();
 
-console.log();
-
 const app = express()
-
 
 //*Rutas
 app.use( express.static('public')); 
+
+//*Rutas
+//TODO auth { crear, login, renew }
+
+app.use('/api/auth',require('./routes/auth'));
+
+//TODO CRUD Eventos
 
 
 //  app.get('/', (req, res) => {
