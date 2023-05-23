@@ -1,14 +1,18 @@
 const express = require('express');
 require('dotenv').config();
 
+//*Creando server express
 const app = express()
 
 //*Rutas
+//* Directorio público
 app.use( express.static('public')); 
 
-//*Rutas
-//TODO auth { crear, login, renew }
+//*Lectura y parseo del body
+app.use(express.json());
 
+//*Rutas
+//* auth { crear, login, renew }
 app.use('/api/auth',require('./routes/auth'));
 
 //TODO CRUD Eventos
