@@ -105,8 +105,7 @@ const revalidarToken = async (req, res = response) => {
 
   const { uid, name } = req;
 
-
-  //*Validar si el user uid ya existe en la base de datos
+  //*Validar si el user uid ya existe en la base de datos??
   const usuario = await Usuario.findOne({ _id:uid });
 
   if (!usuario) {

@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "72adc47a-141d-4295-83d3-99b79d9c6c42",
+		"name": "CalednarApp-Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9674155"
+	},
+	"item": [
+		{
+			"name": "localhost:4000/api/auth/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Rafael Brenes\",\r\n    \"email\":\"rbrenesr@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4000/api/auth/",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"auth",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:4000/api/auth/ new",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Rafael Brenes\",\r\n    \"email\":\"rbrenesr@gmail2.com\",\r\n    \"password\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4000/api/auth/new",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"auth",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:4000/api/auth/ renew",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDZlZWY3MTdhNzYxZDQ3OTk1ZTQzOGIiLCJuYW1lIjoiUmFmYWVsIEJyZW5lcyIsImlhdCI6MTY4NDk5ODc2MCwiZXhwIjoxNjg1MDA1OTYwfQ.UpnSz8D4UeBxeWRyiwlJ1sjF-I0hQtzDolwxdXGYjYk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4000/api/auth/renew",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"auth",
+						"renew"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
