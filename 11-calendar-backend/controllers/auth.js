@@ -2,15 +2,49 @@ const { response } = require("express");
 const bcryptjs = require('bcryptjs');
 const Usuario = require("../models/Usuario");
 
-const loginUsuario = (req, res = response) => {
+const loginUsuario = async (req, res = response) => {
+
   const { email, password } = req.body;
 
-  res.status(200).json({
-    ok: true,
-    msg: "login",
-    email,
-    password,
-  });
+  try {
+
+    //* Verificar si email existe en la BD
+    const usuario = await Usuario.findOne({ email });
+
+    if (!usuario) {
+      return res.status(400).json({
+        ok: false,
+        msg: "El usuario no existe con ese email."
+      });
+    }
+
+    //*Confirmar password
+    const validarPassword = bcryptjs.compareSync(password, usuario.password);
+    if (!validarPassword) {
+      return res.status(400).json({
+        ok: false,
+        msg: "La autenticación falló!"
+      });
+    }
+
+
+
+    res.status(200).json({
+      ok: true,
+      uid: usuario.id,
+      name: usuario.name,
+      token: 'token'      
+    });
+
+
+  } catch (error) {
+    console.log('error personalizado:  ' + error);
+    res.status(500).json({
+      ok: false,
+      msg: "Verificar con admin"
+    });
+  }
+
 };
 
 const crearUsuario = async (req, res = response) => {
@@ -39,26 +73,22 @@ const crearUsuario = async (req, res = response) => {
 
 
     //* Desde acá se puede ingresar un nuevo usuario.
-
     usuario = new Usuario(req.body);
 
-    //TODO encriptar la contraseña
-    //*Generar el 
+    //* Encriptar la contraseña
     const salt = bcryptjs.genSaltSync();
-    usuario.password = bcryptjs.hashSync( password, salt );
-    
+    usuario.password = bcryptjs.hashSync(password, salt);
+
     await usuario.save();
 
     res.status(201).json({
       ok: true,
       msg: "registro",
       uid: usuario.id,
-      name: usuario.name,      
+      name: usuario.name,
     });
   } catch (error) {
-
     console.log('error personalizado:  ' + error);
-     
     res.status(500).json({
       ok: false,
       msg: "Verificar con admin"
