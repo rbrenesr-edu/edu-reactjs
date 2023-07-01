@@ -19,7 +19,7 @@ const validarJWT = (req, res = response, netx) => {
 
         const payload = jwt.verify(token, process.env.SECRET_JWT_SEED);
 
-console.log(payload);
+        console.log(payload);
 
         req.uid = payload.uid;
         req.name = payload.name;

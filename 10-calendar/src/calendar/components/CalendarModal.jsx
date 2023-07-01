@@ -25,7 +25,7 @@ const customStyles = { //*Estilos básicos para el modal
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
+    transform: "translate(-50%, -50%)",    
   },
 };
 
