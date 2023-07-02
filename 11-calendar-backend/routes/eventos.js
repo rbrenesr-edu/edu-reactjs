@@ -10,7 +10,8 @@ const router = express.Router();
 const { getEventos, crearEvento, actualizarEvento, eliminarEvento,} = require("../controllers/eventos");
 
 const { check } = require("express-validator");
-const { validarCampos } = require('../middlewares/validarCampos')
+const { validarCampos } = require('../middlewares/validarCampos');
+const { isDate } = require('../helpers/isDate');
 const { validarJWT } = require('../middlewares/validarJWT');
 
 /**
@@ -34,6 +35,12 @@ router.get(
     );
 router.post(
     '/',     
+    [
+        check('title', 'El título es obligatorio').not().isEmpty(),
+        check('start', 'Fecha inicio es obligatorio').custom( isDate ),
+        check('end', 'Fecha fin es obligatorio').custom( isDate ),
+        validarCampos
+    ],
     crearEvento
     );
 router.put(
