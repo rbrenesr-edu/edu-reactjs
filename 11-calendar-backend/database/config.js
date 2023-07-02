@@ -3,14 +3,15 @@ require('dotenv').config();
 
 const dbConnection = async () => {
   try {
-      
-        await mongoose.connect(process.env.DB_CNN,{
-            useNewUrlParser:true,
-            useUnifiedTopology: true,
-            // useCreateIndex: true
-        });
 
-        console.log('DB online');    
+    await mongoose.connect(process.env.DB_CNN, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      //useCreateIndex: true,
+      //useFindAndModify: false //Esto es lo que se agrega
+    });
+
+    console.log('DB online');
 
   } catch (error) {
     console.log(error);
@@ -19,4 +20,4 @@ const dbConnection = async () => {
 };
 
 
-module.exports ={ dbConnection }
+module.exports = { dbConnection }

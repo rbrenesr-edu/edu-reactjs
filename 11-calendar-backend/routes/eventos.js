@@ -44,7 +44,14 @@ router.post(
     crearEvento
     );
 router.put(
-    '/:id',     
+    '/:id',    
+    [
+        check('title', 'El título es obligatorio').not().isEmpty(),
+        check('start', 'Fecha inicio es obligatorio').custom( isDate ),
+        check('end', 'Fecha fin es obligatorio').custom( isDate ),
+        check('id','Id no es valido.').isMongoId(),
+        validarCampos
+    ], 
     actualizarEvento
     );
 router.delete(

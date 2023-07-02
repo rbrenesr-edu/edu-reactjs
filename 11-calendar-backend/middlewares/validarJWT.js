@@ -15,15 +15,10 @@ const validarJWT = (req, res = response, netx) => {
     }
 
     try {
-
-
         const payload = jwt.verify(token, process.env.SECRET_JWT_SEED);
-
-        console.log(payload);
 
         req.uid = payload.uid;
         req.name = payload.name;
-
 
     } catch (error) {
         return res.status(401).json({
