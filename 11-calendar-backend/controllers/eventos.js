@@ -70,7 +70,6 @@ const actualizarEvento = async (req, res = response) => {
 
 
     const nuevoEvento = {
-      ...req.body,
       user: uid
     }
 
@@ -96,11 +95,47 @@ const actualizarEvento = async (req, res = response) => {
 
 const eliminarEvento = async (req, res = response) => {
 
-  return res.status(200).json({
-    ok: true,
-    msj: 'eliminarEvento'
-  });
+  
+  const eventoId = req.params.id;
+  const uid = req.uid;
 
+  try {
+
+    const evento = await Evento.findById(eventoId);
+
+    if (!evento) {
+      return res.status(404).json({
+        ok: false,
+        msg: 'Evento no existe con ese id.',
+        eventoId
+      });
+    }
+
+    if (evento.user.toString() !== uid) {
+      return res.status(401).json({
+        ok: false,
+        msg: 'No tiene privilegio de eliminar este evento.'
+      });      
+    }
+
+
+
+    const eventoEliminado = await Evento.findByIdAndDelete(eventoId);
+
+    return res.status(200).json({
+      ok: true,
+      msg: 'eliminarEvento',
+      eventoEliminado,
+    });
+
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      ok: false,
+      msg: 'Error al procesar eliminarEvento'
+    });
+  }
 }
 
 const revalidarToken = async (req, res = response) => {

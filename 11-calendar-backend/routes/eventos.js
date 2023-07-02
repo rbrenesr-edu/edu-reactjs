@@ -7,7 +7,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { getEventos, crearEvento, actualizarEvento, eliminarEvento,} = require("../controllers/eventos");
+const { getEventos, crearEvento, actualizarEvento, eliminarEvento, } = require("../controllers/eventos");
 
 const { check } = require("express-validator");
 const { validarCampos } = require('../middlewares/validarCampos');
@@ -26,38 +26,41 @@ const { validarJWT } = require('../middlewares/validarJWT');
 
  */
 
-    router.use(validarJWT);
+router.use(validarJWT);
 
 
 router.get(
-    '/',     
+    '/',
     getEventos
-    );
+);
 router.post(
-    '/',     
+    '/',
     [
         check('title', 'El título es obligatorio').not().isEmpty(),
-        check('start', 'Fecha inicio es obligatorio').custom( isDate ),
-        check('end', 'Fecha fin es obligatorio').custom( isDate ),
+        check('start', 'Fecha inicio es obligatorio').custom(isDate),
+        check('end', 'Fecha fin es obligatorio').custom(isDate),
         validarCampos
     ],
     crearEvento
-    );
+);
 router.put(
-    '/:id',    
+    '/:id',
     [
         check('title', 'El título es obligatorio').not().isEmpty(),
-        check('start', 'Fecha inicio es obligatorio').custom( isDate ),
-        check('end', 'Fecha fin es obligatorio').custom( isDate ),
-        check('id','Id no es valido.').isMongoId(),
+        check('start', 'Fecha inicio es obligatorio').custom(isDate),
+        check('end', 'Fecha fin es obligatorio').custom(isDate),
+        check('id', 'Id no es valido.').isMongoId(),
         validarCampos
-    ], 
+    ],
     actualizarEvento
-    );
+);
 router.delete(
-    '/:id',     
+    '/:id',
+    [
+        check('id', 'Id no es valido.').isMongoId(),
+    ],
     eliminarEvento
-    );
+);
 
 
 //* Exportación de la ruta
