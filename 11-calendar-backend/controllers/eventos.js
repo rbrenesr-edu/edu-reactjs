@@ -1,7 +1,8 @@
 const { response } = require("express");
+const { generarJWT } = require('../helpers/jwt');
 const bcryptjs = require('bcryptjs');
 const Usuario = require("../models/Usuario");
-const { generarJWT } = require('../helpers/jwt');
+const Evento = require('../models/Evento');
 
 const getEventos = async (req, res = response) => {
 
@@ -13,14 +14,29 @@ const getEventos = async (req, res = response) => {
 }
 
 const crearEvento = async (req, res = response) => {
+  
+  const evento = new Evento(req.body);
+  evento.user = req.uid;
 
-  //Verificar que tenga el evento
-  console.log(req.body);
+  try {
 
-  return res.status(200).json({
-    ok: true,
-    msj: 'crearEvento'
-  });
+    const eventoGuardado = await evento.save();
+
+    res.status(200).json({
+      ok: true,
+      msg: 'Evento guardado.',
+      evento: eventoGuardado
+    });
+
+
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      msg: 'Error al procesar crearEvento'
+    });
+
+  }
+
 
 }
 
